@@ -1,0 +1,36 @@
+# Overview
+
+## Table of Contents
+
+Overview
+    - What is the CLI
+    - Docs layout (Learning the cli)
+    - Why it should be used
+    - How to contribute
+
+## What is the CLI?
+
+The Ember CLI (command line interface) is the official way to create, build, test, and serve an Ember.js app. It's like a dependency packager, test runner, optimizer, and local server all rolled into one. Since all the features were built to work together, tasks like upgrading the app version or deploying can be automated with production-ready, open source plugins.
+
+A lot of things have to happen in order for an app to be ready for the browser, and the CLI helps you do them with minimal configuration. However, if you want to make your own adjustments, like use a different testing library, you still can.
+
+##  But why?
+
+<!-- we must, because we can -->
+
+## Learning the CLI
+
+For new users, the recommended learning path is to first do the Ember.js Quickstart and Tutorial, which teach the commands one by one while building a sample app. Then, they should review the "Basic Use" section of this site. Although these CLI guides have a lot of content, a typical Ember developer will only need to know and use a fraction of it. 
+
+True to form, the CLI comes with a command-line-based help system too. At any point, if you're curious what a command does and what the options are, you can add `--help` and press enter to find out more.
+
+## Contributing
+
+The Ember CLI is developed and maintained by a group of open source volunteers from many different companies and backgrounds. If you have an idea for a feature, a bug to report, or just want to help out where it is needed, you can reach the team via GitHub, the Ember Community Slack, or drop by the weekly meeting. 
+
+### Places to contribute
+
+- [The main ember-cli codebase]() 
+- [This documentation site]()
+- Official supporting projects under the [ember-cli organization]() 
+- Search the community's CLI plugins on [EmberObserver](https://emberobserver.com)
