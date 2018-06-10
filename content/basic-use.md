@@ -83,6 +83,8 @@ ember generate component packing-list
 
 ### Learn more
 
+<!-- link to custom blueprints -->
+
 ## Installing dependencies
 
 ### Format
@@ -132,6 +134,33 @@ ember test --server
 ```
 
 ### Learn more
+
+## Building the app for deployment
+
+### Format
+
+```
+ember build [options]
+```
+
+### What it does
+
+`ember build` takes all of your app files and turns them into a bundle that is minified and transpiled into browser-ready JavaScript code, styles, and html. The bundled files go into a directory called `dist`. This bundle is what can be deployed to a server. By default, it uses the `development` environment configuration.
+
+Although you can upload the built files to a server yourself, many Ember projects use a community addon called [ember-cli-deploy](https://github.com/ember-cli-deploy/ember-cli-deploy) to get their apps into production. `ember-cli-deploy` has a plugin system to make it easy to deploy to many cloud vendors. Search [EmberObserver for "deploy"](https://emberobserver.com/?query=deploy) to browse available options.
+
+### Example
+
+This command builds the app using the production configuration, so that means by default, it will use maximum minification for best app performance. See `ember-cli-build.js` to make custom configurations.
+
+```
+ember build --environment production
+```
+
+### Learn more
+
+<!-- what to link to here? something about ember-cli-build -->
+
 
 <!-- link to guides and maybe super rentals -->
 
