@@ -10,7 +10,7 @@ Overview
 
 ## What is the CLI?
 
-The Ember CLI (command line interface) is the official way to create, build, test, and serve the files that make up an Ember.js app. It's like a dependency packager, test runner, optimizer, and local server all rolled into one. Since all the features were built to work together, tasks like upgrading the app version or deploying can be automated with production-ready, open source plugins.
+The Ember CLI (command line interface) is the official way to create, build, test, and serve the files that make up an Ember.js app or addon. It's like a dependency packager, test runner, optimizer, and local server all rolled into one. Since all the features were built to work together, tasks like upgrading the app version or deploying can be automated with production-ready, open source plugins.
 
 A lot of things have to happen in order for an app to be ready for the browser, and the CLI helps you do them with minimal configuration. However, if you want to make your own adjustments, like use a different testing library, you still can.
 
@@ -18,6 +18,10 @@ A lot of things have to happen in order for an app to be ready for the browser, 
 
 The CLI's job is to make your work easier.
 It was built with the philosophy that a developer should be able to focus on building great apps, not reengineering how to fit all the pieces together at each stage of an app's lifecycle (creation, local development, production deployments). The result is apps that are more maintainable and approachable, since there are established architectural patterns across individuals, teams, and companies.
+
+## What are addons?
+
+There are thousands of JavaScript libraries that work great in Ember. When an npm package offers some Ember-specific conveniences, we call it an “addon.” Ember CLI’s addon system provides a way to create reusable units of code, share components and styling, extend the build tooling, and more — all with minimal configuration. To view a complete list of addons, visit EmberObserver. You can still use your favorite npm packages directly too. If they are not available as addons yet, you can add them into your build pipeline or create your own addon wrappers.
 
 ## Learning the CLI
 
