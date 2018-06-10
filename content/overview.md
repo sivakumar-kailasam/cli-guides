@@ -29,13 +29,17 @@ For new users, the recommended learning path is to first do the Ember.js Quickst
 
 True to form, the CLI comes with a command-line-based help system too. At any point, if you're curious what a command does and what the options are, you can add `--help` and press enter to find out more.
 
+## Getting help
+
+Do you have questions? Run into an issue or a bug? Get support from the community. A list of chat rooms, forums, and more is available [here](https://www.emberjs.com/learn/).
+
 ## Contributing
 
-The Ember CLI is developed and maintained by a group of open source volunteers from many different companies and backgrounds. If you have an idea for a feature, a bug to report, or just want to help out where it is needed, you can reach the team via GitHub, the Ember Community Slack, or drop by the weekly meeting. 
+The Ember CLI is developed and maintained by a group of open source volunteers from many different companies and backgrounds. If you have an idea for a feature, a bug to report, or just want to help out where it is needed, you can reach the team via [GitHub](https://github.com/ember-cli), the [Ember Community forums and chat](https://www.emberjs.com/learn/), or drop by the weekly meeting that is open to the public.
 
 ### Places to contribute
 
-- [The main ember-cli codebase]() 
-- [This documentation site]()
-- Official supporting projects under the [ember-cli organization]() 
+- [The main ember-cli codebase](https://github.com/ember-cli/ember-cli) 
+- [This documentation site](https://github.com/ember-learn/cli-guides)
+- Official projects under the [ember-cli organization](https://github.com/ember-cli/) 
 - Search the community's CLI plugins on [EmberObserver](https://emberobserver.com)
