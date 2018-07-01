@@ -27,7 +27,9 @@ There are thousands of JavaScript libraries that work great in Ember. When an np
 
 ## Learning the CLI
 
-For new users, the recommended learning path is to first do the Ember.js Quickstart and Tutorial, which teach the commands one by one while building a sample app. Then, they should review the "Basic Use" section of this site. Although these CLI guides have a lot of content, a typical Ember developer will only need to know and use a fraction of it. 
+For new users, the recommended learning path is to first do the Ember.js Quickstart and Tutorial, which teach the commands one by one while building a sample app. Then, they should review the "Basic Use" section of this site. Although these CLI guides have a lot of content, a typical Ember developer will only need to know and use a fraction of it.
+
+To get the most out of reading this guide, it is good to have an idea of what the different kinds of files in Ember are for, like components, routes, and services. Search the [main Ember guides](https://guides.emberjs.com/release/) any time you have a question about how to use something created with the CLI.
 
 True to form, the CLI comes with a command-line-based help system too. At any point, if you're curious what a command does and what the options are, you can add `--help` and press enter to find out more.
 
