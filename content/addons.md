@@ -6,6 +6,7 @@ An addon can include everything from JavaScript code, compiling tools, deploymen
 
 In this guide, we'll cover:
 - Finding and using community addons
+- Addon file structure
 - Writing your an addon within an app
 - Writing an addon that can be shared
 - Turning a regular npm package into an addon
@@ -49,13 +50,93 @@ Here are just a few examples of popular community-maintained addons unique to Em
 
 Open Source projects like these addons rely on community members helping out. Some addons are sponsored by companies, but many are maintained on 100% volunteer time. If something doesn't work the way you expect, could be better documented, has a bug, or could be added as a new feature, please speak up and pitch in!
 
-## Learning how to write an addon
+## Writing an addon
 
-<!-- Suggest looking at source code of other addons -->
+Writing an addon is a great way to organize code, share it with others, or get the foundational knowledge to contribute to Open Source addons. By separating features into an addon instead of leaving it as an in-app component, more developers can work in parallel and breaking changes can be managed independently. Maintainability goes up, and testing becomes easier.
 
-## Addon file structure
+Since the Ember community has so many addons, one of the best ways to learn more advanced addon development is to study existing addons. If we get stuck or need to see some examples in action, [Ember Observer's code search](https://www.emberobserver.com/code-search) can be very helpful.
 
-<!-- what are different sections actually used for -->
+### Generating the addon
+
+Use the ember-cli to create the file structure for the addon. Run this command in a fresh directory, not inside an existing Ember app:
+
+```bash
+ember addon <addon-name> [options]
+```
+
+The result is the creation of a directory called `<addon-name>`, which has many files and looks a bit like an Ember ap. We won't need to use all the files to make a useful addon. By convention, _most_ Ember addons start with `ember` in the name, like `ember-basic-dropdown`. This will help other developers find our addon.
+
+<!-- Should we cover in-repo addons at all??? -->
+<!-- 
+If the addon is just meant to be used in a single project, an "in-repo" addon could be created instead. The benefit is that it is lightweight, but there are some major limitations; an in-repo addon can't be shared between apps, versioned independently, or published to npm. From within an existing Ember app, use:
+
+```bash
+ember generate in-repo-addon <addon-name> [options]
+```
+
+This generates a folder called `lib/<addon-name>` that contains its own `package.json` and an `index.js` file. 
+-->
+
+### Addon file structure
+
+In some ways, and addon is like a mini Ember app. It has a very similar file structure, uses a lot of the same API methods, and can do most things that components are able to do. 
+
+<!-- add a file tree table and explanations -->
+<!-- include difference between app and addon namespace folders -->
+
+### Creating an addon component
+
+To create a component that can be shared between apps, the process is a lot like creating a normal app component:
+
+```bash
+ember generate component <addon-name>
+```
+
+However, in the context of an addon, this creates more files than we would see in an app:
+
+```
+  create addon/components/<addon-name>.js
+  create addon/templates/components/<addon-name>.hbs
+  create tests/integration/components/<addon-name>-test.js
+  create app/components/<addon-name>.js
+
+```
+
+Some files go in the `app` directory, while others go into the `addon` directory. We'll start by looking at the addon directory. At this stage, whatever we put in the `<addon-name>.hbs` file is what could be used immediately in an app.
+
+Let's say that our addon should wrap some content in a button tag. The addon template looks like this:
+
+```hbs
+<!-- addon/templates/components/<addon-name>.hbs -->
+
+<button>{{buttonLabel}}</button>
+```
+
+Our goal is to be able to pass the `buttonName` value to the addon, just like we'd pass it to a normal component within an app:
+
+```hbs
+<!-- This is a handlebars file in the app using the addon -->
+
+{{addon-name buttonLabel="Register"}}
+```
+
+### Trying out the addon in an app
+
+There are two main options to see the addon in action. We could use `npm link` or `yarn link` to try it out locally, or we could publish the addon to npm. We'll use `link` while we are still developing and testing. 
+
+1. Since our addon uses a template, we need the template precompiler to be a `dependency` and not a `devDependency`. In the addon's `package.json`, move the entry for `ember-cli-htmlbars` into the `dependencies` listing. If this step is missed, there is a clear error message when we try to start the app that uses our addon.
+2. From within the addon directory, `yarn install` or `npm install`
+3. From within the main addon directory, run the command `yarn link` or `npm link`
+4. In the Ember app that should use the addon, do `yarn link <addon-name>` or `npm link <addon-name>`.
+5. In the Ember app's `package.json`, add an entry for your addon, like `"addon-name": "*"`. The `*` means that it will include all version numbers of our addon.
+6. Run `yarn install` or `npm install`
+7. Add a reference to your addon somewhere in an app template, like `{{addon-name buttonLabel="Register"}}`
+8. Run a local server with `ember server`
+
+We should now see our addon in action!
+
+**Having problems?**
+Check to make sure that your `package.json` is valid, looking for missing commas or trailing commas. "Template precompiler" errors mean that we forgot Step One. `404 not found` means we forgot to `yarm` or `npm install`. Other errors are likely due to file naming problems. For example, trying to rename an addon or component after it has been created is prone to mistakes. And of course, we need to make sure we saved all the files that we changed along the way. The author of this guide did not make every single mistake in this list while writing it. They learned the hard way not to rename files a long time ago, therefore they made every mistake but that one ;)
 
 ## Documenting your addon
 
