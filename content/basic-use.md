@@ -7,7 +7,16 @@ We'll cover them here, along with a quick tutorial of how to use the `--help` op
 
 For any of the commands below, you can see all of the options available by using the `--help` flag.
 
-For example, `ember generate --help` will show you a full list of all the types of files you can create using the CLI.
+For example, `ember --help` will show a list of all available top level commands. Get more detailed help by adding `--help` to the end of any command, like how `ember generate --help` will show a full list of all the types of files you can create using the CLI.
+
+The help command is also the best way to see the aliased or shorthand versions of common commands and options. For example, here are some of the most frequently used abbreviations:
+
+| full command | alias |
+|--------------|-------|
+| `ember generate` | `ember g` |
+| `ember serve`    | `ember s` |
+| `ember test`     | `ember t` |
+| `ember version`  | `ember v` |
 
 <!-- SCREENSHOT -->
 
@@ -43,8 +52,6 @@ ember new camping-trip-tracker --yarn
 ember serve [options]
 ```
 
-You can also use shorthand like `ember s`.
-
 ### What it does
 
 `ember serve` takes all of the app's files and turns them into something that can be rendered in the browser. By default, view the app by visiting `http://localhost:4200`. It's a good idea to keep the server running as we work so that we know as soon as we've broken something. The CLI watches the project folders, and will rerender as files change.
@@ -65,7 +72,9 @@ ember serve --port 3200
 
 ### Format
 
-`ember generate <type of file> <the name to give it>`
+```
+ember generate <type of file> <the name to give it>
+```
 
 ### What it does
 
@@ -151,7 +160,7 @@ Although you can upload the built files to a server yourself, many Ember project
 
 ### Example
 
-This command builds the app using the production configuration, so that means by default, it will use maximum minification for best app performance. See `ember-cli-build.js` to make custom configurations.
+This command builds the app using the production configuration, so that means by default, it will use maximum minification for best app performance.
 
 ```
 ember build --environment production
