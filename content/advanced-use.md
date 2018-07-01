@@ -10,9 +10,9 @@ Most custom configuration is done in `ember-cli-build.js`, `environment.js`, and
 
 ### Broccoli
 
-Ember uses Broccoli for the build process. Broccoli is an independent project that is similar to tools like webpack and parcel. Common Broccoli configurations include adding assets into the build pipeline. For example, if an app has content in the form of Markdown files that need to be turned into HTML during the build, a Broccoli plugin would be the way to go. This very app you're reading content on right now follows that architecture.
+Ember uses Broccoli for the build process. Broccoli is an independent project that is similar to tools like webpack and parcel. Although many developers never need to configure Broccoli themselves, they have the option to do so. For example, if an app has content in the form of Markdown files that need to be turned into HTML during the build, it could be done with Broccoli. This very app you're reading content on right now follows that architecture, and the work was turned into a [Broccoli plugin](https://github.com/stonecircle/broccoli-static-site-json).
 
-Just like there are Ember community addons, there are a variety of Ember community broccoli plugins too!
+Just like there are Ember community addons, there are a variety of Broccoli plugins too!
 
 ### Babel
 
