@@ -84,7 +84,7 @@ The new files will contain the necessary boilerplate, they will go in the right 
 
 ### Example
 
-This command will make a component named `packing-list`. There will be three files created in the app: `packing-list.hbs` which will define what it looks like, `packing-list.js` with JavaScript code to handle user interaction, and an integration test file called `packing-list-test.js`.
+This command will make a component named `packing-list`. There will be three files created in the app: `packing-list.hbs` which will define what it looks like, `packing-list.js` with JavaScript code to handle user interaction, and an integration test (aka rendering test) file called `packing-list-test.js`.
 
 ```
 ember generate component packing-list
