@@ -24,9 +24,13 @@ The CLI uses uglify to take dozens of JavaScript files and turn them into someth
 
 ### Stylesheet compilation
 
-Out of the box, Ember apps use CSS by default. However there is support for other stylesheet systems like LESS and SASS.
+Ember apps use CSS by default. However there is support for other stylesheet systems like LESS and SASS.
 
-<!-- no idea what else to do here -->
+<!-- Show that app/styles/app.css is the entry point-->
+
+<!-- Example of importing stylesheets from node_modules -->
+
+<!-- Example of enabling SASS suppot -->
 
 ### Testing framework
 
