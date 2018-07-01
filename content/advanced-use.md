@@ -16,7 +16,9 @@ Just like there are Ember community addons, there are a variety of Ember communi
 
 ### Babel
 
-Babel is an independent project used basically everywhere on the web. Browsers all have different behavior for handling the connections between JavaScript modules. Babel converts the modules into something that the wide variety of browsers can understand. The CLI uses Babel as part of the build process.
+The CLI uses Babel as part of the build process. Babel is an independent project used in an incredible percentage of websites. It has an important job, as quoted from [their documentation](https://babeljs.io/docs/en):
+
+> Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in old browsers or environments.
 
 ### Minification
 
