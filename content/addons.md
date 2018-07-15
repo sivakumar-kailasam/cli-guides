@@ -83,12 +83,31 @@ This generates a folder called `lib/<addon-name>` that contains its own `package
 
 In some ways, an addon is like a mini Ember app. It has a very similar file structure, uses a lot of the same API methods, and can do most things that components are able to do. 
 
-<!-- add a file tree table and explanations -->
-<!-- include difference between app and addon namespace folders -->
+Let's take a look a some of the most important files and folders in an addon, and how they are different from what we would find in an app. 
 
-### Creating an addon component template
+#### `addon/` 
 
-To create a component template that can be shared between apps, the process is a lot like creating a normal app component:
+If an addon only offers one UI template, the addon files usually go in the `addon/` directory. When the addon is used in a template, it is called by the "real name" of the addon, like `{{my-addon-name someValue=true}}`. This directory can hold many of the same subdirectories and files that an Ember app would, like `/components/` and `/templates/`.
+
+#### `app/` 
+
+If an addon will export multiple templates, the addon's files should go in the `app/` directory. When the addon templates are used, they are called by the template name, not the addon name. For example, the addon could provide `{{super-hero-img}}` and `{{fantastic-form}}`. Many addon developers prefix these kinds of templates with a nickname in order to avoid namespace clashes. For example, an addon template named `{{table-row}}` might cause problems if the app using it has a component by the same name, so `{{bs-table-row}}` is safer.
+
+#### `tests/dummy/`
+This directory contains a full Ember app for addon testing purposes. During tests, we can check to make sure that the addon works or looks as expected when it is used in an app. Many addon developers use the dummy app to hold their documentation site's content as well.
+
+#### `package.json` 
+
+If we want other people to be able to use our addon, at minimum, we need to specify a license, a version, the repository url, and description.
+
+#### `config/ember-try.js`
+
+This is a place to configure which versions of Ember that the test suite should check for compatibility.
+
+
+### Creating a reusable UI component
+
+To create a UI component template that can be shared between apps, the process is a lot like creating a normal app component:
 
 ```bash
 ember generate component <addon-name>
@@ -138,9 +157,34 @@ There are several options to see the addon in action. We could use `npm link` or
 We should now see our addon in action!
 
 **Having problems?**
-Check to make sure that your `package.json` is valid, looking for missing commas or trailing commas. "Template precompiler" errors mean that we forgot Step One. `404 not found` means we forgot to `yarn` or `npm install`. Other errors are likely due to file naming problems. For example, trying to rename an addon or component after it has been created is prone to mistakes. And of course, we need to make sure we saved all the files that we changed along the way. The author of this guide did not make every single mistake in this list while writing it. They learned the hard way not to rename files a long time ago, therefore they made every mistake but that one ;)
+Check to make sure that your `package.json` is valid, looking for missing commas or trailing commas. "Template precompiler" errors mean that we forgot Step One. `404 not found` means we forgot to `yarn` or `npm install`. Other errors are likely due to file naming problems. For example, trying to rename an addon or component after it has been created is prone to mistakes. And of course, we need to make sure we saved all the files that we changed along the way. (The author of this guide made every single mistake in this list while writing it.)
 
-### Block form component template
+### Making a UI component available in block form
+
+In an Ember app, components can be used in ["simple" or "block" form](https://guides.emberjs.com/release/components/wrapping-content-in-a-component/). Addon templates have the same capabilities. Simple form is useful when the app developer should providing data objects or configuration values to the addon, while the block form is most useful when the developer should also be able to pass in some of their own handlebars templating and interactivity. 
+
+For example, this is a simple form of an addon being used in an app. The developer can provide attribute values like `"Register"`.
+
+```hbs
+<!-- This is a handlebars file in the app using the addon -->
+
+{{addon-name chartData=data}}
+```
+
+Here's what it would look like to use the block form of an addon in an app:
+
+```hbs
+<!-- This is a handlebars file in the app using the addon -->
+
+{{#addon-name chartData=data}}
+  <div class="chart-description">
+    Here is a description of the chart and a link: 
+    {{link-to 'Raw Data' 'raw-data'}}
+  </div>
+{{#addon-name}}
+```
+
+In an Ember app, a block style component uses the `{{yield}}` helper to indicate where the passed in content should go. It is the same in an Ember addon.
 
 ### Adding JavaScript functionality
 
