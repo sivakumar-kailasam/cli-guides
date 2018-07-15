@@ -35,7 +35,7 @@ True to form, the CLI comes with a command-line-based help system too. At any po
 
 ## Getting help
 
-Do you have questions? Run into an issue or a bug? Get support from the community. A list of chat rooms, forums, and more is available [here](https://www.emberjs.com/learn/).
+Do you have questions? Run into an issue or a bug? Get support from the community. A list of chat rooms, forums, and more is available [here](https://www.emberjs.com/community/).
 
 ## Contributing
 
