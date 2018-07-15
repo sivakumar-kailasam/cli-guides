@@ -42,7 +42,7 @@ ember new camping-trip-tracker --yarn
 
 ### Learn more
 
-<!-- Link to quickstart in the guides -->
+- [Ember Quickstart Guide](https://guides.emberjs.com/release/getting-started/quick-start/) for creating a first app
 
 ## Serve the app locally
 
