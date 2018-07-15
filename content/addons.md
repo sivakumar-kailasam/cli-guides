@@ -2,12 +2,12 @@
 
 The modern web developer has an incredible selection of open source code that they can use through the npm ecosystem, plus great tools for writing their own modules. Ember developers are free to use regular npm packages in their apps, but there are also thousands of packages that are made specifically for the Ember ecosystem. We call such packages "addons."
 
-An addon can include everything from JavaScript code, compiling tools, deployment pipelines, templates, stylesheets, and more.
+Addons are often JavaScript code, reusable UI components, compiling tools, deployment pipelines, templates, stylesheets, and more. Think of addons as node.js libraries with superpowers. In addition to the usual functionality of an npm package, addons can also help with generating new files, preprocessing, file fingerprinting, and more.
 
 In this guide, we'll cover:
 - Finding and using community addons
 - Addon file structure
-- Writing your an addon within an app
+- Writing your addon within an app
 - Writing an addon that can be shared
 - Turning a regular npm package into an addon
 - Testing addons
@@ -16,7 +16,7 @@ In this guide, we'll cover:
 
 ## Finding and using community addons
 
-[Ember Observer](https://www.emberobserver.com/) is the definitive way to explore community addons. Although addons can be found by [searching the npm repository directly](https://www.npmjs.com/search?q=ember), Ember Observer has ranked lists of most popular addons and ratings to help developers choose between them. Most are made to drop right into your app with zero configuration. Many addons are backwards-compatible to earlier versions of Ember too!
+[Ember Observer](https://www.emberobserver.com/) is the definitive way to explore community addons. Although addons can be found by [searching the npm repository directly](https://www.npmjs.com/search?q=ember), Ember Observer has ranked lists of the most popular addons and ratings to help developers choose between them. Most are made to drop right into your app with zero configuration. Many addons are backwards-compatible to earlier versions of Ember too!
 
 To install an addon, use:
 
@@ -26,7 +26,7 @@ ember install <addon-name>
 
 To be safe, it's a good idea to restart the local server after installing new dependencies, and especially before trying to debug an addon that isn't working.
 
-The `install` command creates an entry in the app's `package.json`, and downloads the addon and its dependencies into `node_modules`. Some addons also create new files or make modifications when they are installed.
+The `ember install` command is similar to the `npm install` you might already be familiar with. It creates an entry in the app's `package.json` and downloads the addon and its dependencies into a `node_modules` directory. However, `ember install` does even more than `npm`. Some addons create new files or make modifications to your app when they are installed via `ember install`.
 
 ### Choosing an addon
 
@@ -56,6 +56,8 @@ Writing an addon is a great way to organize code, share it with others, or get t
 
 Since the Ember community has so many addons, one of the best ways to learn more advanced addon development is to study existing addons. If we get stuck or need to see some examples in action, [Ember Observer's code search](https://www.emberobserver.com/code-search) can be very helpful.
 
+Although an addon looks and feels a lot like an Ember app, it is important to work in small steps and validate that each piece is working before writing more code. Developers who are very comfortable with Ember apps might otherwise make a lot of changes and walk into some common pitfalls that can be hard to debug in unison.
+
 ### Generating the addon
 
 Use the ember-cli to create the file structure for the addon. Run this command in a fresh directory, not inside an existing Ember app:
@@ -64,7 +66,7 @@ Use the ember-cli to create the file structure for the addon. Run this command i
 ember addon <addon-name> [options]
 ```
 
-The result is the creation of a directory called `<addon-name>`, which has many files and looks a bit like an Ember ap. We won't need to use all the files to make a useful addon. By convention, _most_ Ember addons start with `ember` in the name, like `ember-basic-dropdown`. This will help other developers find our addon.
+The result is the creation of a directory called `<addon-name>`, which has many files and looks a bit like an Ember app. We won't need to use all the files to make a useful addon. By convention, _most_ Ember addons start with `ember` in the name, like `ember-basic-dropdown`. This will help other developers find our addon.
 
 <!-- Should we cover in-repo addons at all??? -->
 <!-- 
@@ -79,14 +81,14 @@ This generates a folder called `lib/<addon-name>` that contains its own `package
 
 ### Addon file structure
 
-In some ways, and addon is like a mini Ember app. It has a very similar file structure, uses a lot of the same API methods, and can do most things that components are able to do. 
+In some ways, an addon is like a mini Ember app. It has a very similar file structure, uses a lot of the same API methods, and can do most things that components are able to do. 
 
 <!-- add a file tree table and explanations -->
 <!-- include difference between app and addon namespace folders -->
 
-### Creating an addon component
+### Creating an addon component template
 
-To create a component that can be shared between apps, the process is a lot like creating a normal app component:
+To create a component template that can be shared between apps, the process is a lot like creating a normal app component:
 
 ```bash
 ember generate component <addon-name>
@@ -120,9 +122,9 @@ Our goal is to be able to pass the `buttonName` value to the addon, just like we
 {{addon-name buttonLabel="Register"}}
 ```
 
-### Trying out the addon in an app
+### Trying out the addon template in an app
 
-There are two main options to see the addon in action. We could use `npm link` or `yarn link` to try it out locally, or we could publish the addon to npm. We'll use `link` while we are still developing and testing. 
+There are several options to see the addon in action. We could use `npm link` or `yarn link` to try it out locally or publish the addon online. We'll use `link` while we are still developing and testing. 
 
 1. Since our addon uses a template, we need the template precompiler to be a `dependency` and not a `devDependency`. In the addon's `package.json`, move the entry for `ember-cli-htmlbars` into the `dependencies` listing. If this step is missed, there is a clear error message when we try to start the app that uses our addon.
 2. From within the addon directory, `yarn install` or `npm install`
@@ -131,23 +133,25 @@ There are two main options to see the addon in action. We could use `npm link` o
 5. In the Ember app's `package.json`, add an entry for your addon, like `"addon-name": "*"`. The `*` means that it will include all version numbers of our addon.
 6. Run `yarn install` or `npm install`
 7. Add a reference to your addon somewhere in an app template, like `{{addon-name buttonLabel="Register"}}`
-8. Run a local server with `ember server`
+8. Run a local server with `ember serve`
 
 We should now see our addon in action!
 
 **Having problems?**
-Check to make sure that your `package.json` is valid, looking for missing commas or trailing commas. "Template precompiler" errors mean that we forgot Step One. `404 not found` means we forgot to `yarm` or `npm install`. Other errors are likely due to file naming problems. For example, trying to rename an addon or component after it has been created is prone to mistakes. And of course, we need to make sure we saved all the files that we changed along the way. The author of this guide did not make every single mistake in this list while writing it. They learned the hard way not to rename files a long time ago, therefore they made every mistake but that one ;)
+Check to make sure that your `package.json` is valid, looking for missing commas or trailing commas. "Template precompiler" errors mean that we forgot Step One. `404 not found` means we forgot to `yarn` or `npm install`. Other errors are likely due to file naming problems. For example, trying to rename an addon or component after it has been created is prone to mistakes. And of course, we need to make sure we saved all the files that we changed along the way. The author of this guide did not make every single mistake in this list while writing it. They learned the hard way not to rename files a long time ago, therefore they made every mistake but that one ;)
 
-## Documenting your addon
+### Block form component template
 
-## Writing a simple addon from scratch
+### Adding JavaScript functionality
+
+### Including stylesheets
+
+### Providing multiple components in one addon
 
 ## Writing an npm package wrapper
 
-## Creating an in-repo addon
+## Documenting addons
 
 ## Testing an addon
-
-## Including assets
 
 ## Advanced addon configuration
