@@ -68,17 +68,6 @@ ember addon <addon-name> [options]
 
 The result is the creation of a directory called `<addon-name>`, which has many files and looks a bit like an Ember app. We won't need to use all the files to make a useful addon. By convention, _most_ Ember addons start with `ember` in the name, like `ember-basic-dropdown`. This will help other developers find our addon.
 
-<!-- Should we cover in-repo addons at all??? -->
-<!-- 
-If the addon is just meant to be used in a single project, an "in-repo" addon could be created instead. The benefit is that it is lightweight, but there are some major limitations; an in-repo addon can't be shared between apps, versioned independently, or published to npm. From within an existing Ember app, use:
-
-```bash
-ember generate in-repo-addon <addon-name> [options]
-```
-
-This generates a folder called `lib/<addon-name>` that contains its own `package.json` and an `index.js` file. 
--->
-
 ### Addon file structure
 
 In some ways, an addon is like a mini Ember app. It has a very similar file structure, uses a lot of the same API methods, and can do most things that components are able to do. 
@@ -306,6 +295,8 @@ export default Component.extend({
 
 ```
 
+### Organizing public API code
+
 One common pattern for managing an addon's JavaScript code is to define the methods in many separate files, perhaps grouped into subfolders, import them into `index.js`, and then export them.
 
 For example, an `index.js` file might contain nothing more than imports and exports:
@@ -316,11 +307,27 @@ import { moreEnthusiasm, curbedEnthusiasm } from 'our-app-name/utilities/enthusi
 export { moreEnthusiasm, curbedEnthusiasm };
 ```
 
+### How to keep learning
+
 This is a very tiny example of what addons can do in terms of providing JavaScript utilties to apps. For more advanced techniques, study other well established addons. Just like there are many ways and reasons to build an Ember app, the same is true for addons!
 
 ## Writing an npm package wrapper
 
 <!-- Help wanted! -->
+
+## In-repo addons
+
+If the addon is just meant to be used in a single project, an "in-repo" addon could be created instead. The benefit is that it is lightweight, but there are some major limitations: an in-repo addon can't be shared between apps, versioned independently, or published to npm. 
+
+From within an existing Ember app, create an in-repo addon:
+
+```bash
+ember generate in-repo-addon <addon-name> [options]
+```
+
+This generates a folder called `lib/<addon-name>` that contains its own `package.json` and an `index.js` file.
+
+The most common use case for an in-repo addon is when there is a chance a component really should be a standalone library instead, but it is not yet clear if it should be broken out from the main app.
 
 ## Other kinds of addons
 
@@ -345,6 +352,8 @@ What about documentation of the code itself? Many JavaScript documentation tools
 Lastly, be sure to provide a few notes about how others can contribute to the project! These notes commonly go in a `README.md` or `CONTRIBUTING.md` file.
 
 ## Testing an addon
+
+<!-- help wanted -->
 
 ## Advanced addon configuration
 
