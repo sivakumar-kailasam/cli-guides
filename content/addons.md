@@ -161,34 +161,104 @@ Check to make sure that your `package.json` is valid, looking for missing commas
 
 ### Making a UI component available in block form
 
-In an Ember app, components can be used in ["simple" or "block" form](https://guides.emberjs.com/release/components/wrapping-content-in-a-component/). Addon templates have the same capabilities. Simple form is useful when the app developer should providing data objects or configuration values to the addon, while the block form is most useful when the developer should also be able to pass in some of their own handlebars templating and interactivity. 
+In an Ember app, components can be used in ["simple" or "block" form](https://guides.emberjs.com/release/components/wrapping-content-in-a-component/). Addon templates have the same capabilities. Simple form is useful when the app developer should providing data objects or configuration values to the addon, while the block form is most useful when the developer should also be able to pass in some of their own templating, content, and interactivity.
 
-For example, this is a simple form of an addon being used in an app. The developer can provide attribute values like `"Register"`.
+In an Ember app, a block style component uses the `{{yield}}` helper as a placeholder for where the passed-in content will go. It is the same in an Ember addon. 
+
+Let's change our button addon we made earlier so that developers can pass in their own handlebars content by using the `{{yield}}` helper:
 
 ```hbs
-<!-- This is a handlebars file in the app using the addon -->
+<!-- addon/templates/components/<addon-name>.hbs -->
 
-{{addon-name chartData=data}}
+<button>{{yield}}</button>
 ```
 
-Here's what it would look like to use the block form of an addon in an app:
+Now, an app can use the addon with their own content inside:
 
 ```hbs
 <!-- This is a handlebars file in the app using the addon -->
 
-{{#addon-name chartData=data}}
-  <div class="chart-description">
-    Here is a description of the chart and a link: 
-    {{link-to 'Raw Data' 'raw-data'}}
-  </div>
 {{#addon-name}}
+  Register <img href="./images/some-cute-icon.png" alt="">
+{{/addon-name}}
 ```
 
-In an Ember app, a block style component uses the `{{yield}}` helper to indicate where the passed in content should go. It is the same in an Ember addon.
+Whatever goes inside the block form addon will show up where the `{{yield}}` was. This is the markdown that renders in the app:
+
+```html
+<!-- markdown rendered by running the app -->
+
+<button>
+  Register <img href="./images/some-cute-icon.png" alt="">
+</button>
+```
+
+### Styling a UI component addon
+
+Addon developers have many options for handling styles within their addons. For example, we could stick to plain old CSS, or use a preprocessor like Less or Sass. Most seasoned addon authors prefer SASS/SCSS. We could automatically style the UI elements when they are used in an app, or we could let the developer who installed the addon choose which stylesheets to include. Here are a few different approaches. Luckily, the Ember CLI handles most of the work for us and we don't have to worry about the inner workings of asset compilation.
+
+#### Automatically including CSS stylesheets in addons
+
+To automatically include CSS styling for your addon, create a `styles` directory in the `addon` directory, and place your CSS files in it. For example, we could create `addon/styles/our-addon-name.css`.
+
+When our addon is used in an app, these CSS rules will be added to the end of the app's `vendor.css` when it is built or served. The rules will be in the same scope as the rest of the app's css, so name your class selectors wisely! Otherwise they will clash with the styles of other addons or the app's own styling.
+
+For example, writing a CSS rule for `div` is problematic, because it will affect all `div`s in the app, but a rule targeting `.my-app-name div` is probably fine.
+
+Let's add a class to our template and some styles to target the class:
+
+```hbs
+<!-- addon/templates/components/<addon-name>.hbs -->
+
+<button class="addon-name-button">{{yield}}</button>
+```
+
+```css
+/* addon/styles/our-addon-name.css */
+
+.addon-name-button {
+  padding: 10px;
+}
+```
+
+Now any buttons made using our addon will have the `padding: 10px` rule applied.
+
+#### CSS stylesheets that require importing from addons
+
+For some addons, it makes sense to give the developer the option to import the stylesheet we provide, or import no stylesheets at all. Using this approach, we could even offer the developer a few themes to choose from.
+
+We can do this by creating stylesheets in the `app/styles/` directory instead. These stylesheets share a file namespace with the consuming app and all the other addons someone is using, so name them wisely. For example, if we name our stylesheet `addon.css`, that's likely to clash. Just as before, it's important to choose uniquely named targets for the CSS rules so that they don't clash with other addons or the app. 
+
+Let's create `app/styles/our-addon-name.css` and add a rule to it: 
+
+```css
+/* addon/styles/our-addon-name.css */
+
+.addon-name-button {
+  border: black solid 2px;
+}
+```
+
+For the stylesheet to be active in the app the addon is used in, the developer for that app must explicitly `import` the stylesheet by name. This must be done at the very top of the app's `app.css` file.
+
+```css
+@import 'our-addon-name.css'
+/* The app's own app/styles/app.css */
+```
+
+If there are any problems getting this to work, one strategy is to build the addon with `ember build` and look inside the `dist` folder. The `dist` folder may be hidden by default in some code editors. The `dist` folder gives clues about what the consuming app sees as the file structure of the addon. See if the stylesheets are in `dist/assets/`. Then, in the Ember app, run `ember build` and look in the `dist` folder. We should see our stylesheets in `dist/assets` of the app too.
+
+#### Using CSS preprocessors for the addon's stylesheets
+
+While this guide focuses on the "out of the box" behavior of addons and the Ember CLI, there are some well-established patterns for handling stylesheets in a way that is scalable and maintainable. A CSS preprocessor like Sass (aka SCSS) allows you to nest style rules, use variables, and do simple mathematical operations.
+
+The best way to learn how to CSS preprocessors in your addon is to consult the documentation for the preprocessor addon of your choice, and study how other addon authors have implemented stylesheets. For example, [ember-styleguide](https://github.com/ember-learn/ember-styleguide/) is a UI component library that was made for the main Ember websites. It uses [ember-cli-sass](https://www.emberobserver.com/addons/ember-cli-sass) to manage styles. You can search [Ember Observer](https://emberobserver.com) for many more examples of styling in action!
 
 ### Adding JavaScript functionality
 
-### Including stylesheets
+Interactivity in an addon can be handled the same way that it is done for an Ember app component. Every addon component template has a corresponding JavaScript file to go with it. For example, an addon can have its own actions, computed properties, and imported dependencies. Developers using the addon can pass in their own actions and attributes.
+
+For more information about building interactivity for your addon, reference the [Ember Guides components section](https://guides.emberjs.com/release/components/defining-a-component/). Remember to test as you work!
 
 ### Providing multiple components in one addon
 
