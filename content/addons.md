@@ -58,7 +58,7 @@ Since the Ember community has so many addons, one of the best ways to learn more
 
 Although an addon looks and feels a lot like an Ember app, it is important to work in small steps and validate that each piece is working before writing more code. Developers who are very comfortable with Ember apps might otherwise make a lot of changes and walk into some common pitfalls that can be hard to debug in unison.
 
-### Generating the addon
+### Generating the addon files
 
 Use the ember-cli to create the file structure for the addon. Run this command in a fresh directory, not inside an existing Ember app:
 
@@ -105,7 +105,7 @@ If we want other people to be able to use our addon, at minimum, we need to spec
 This is a place to configure which versions of Ember that the test suite should check for compatibility.
 
 
-### Creating a reusable UI component
+## Creating a reusable UI component addon
 
 To create a UI component template that can be shared between apps, the process is a lot like creating a normal app component:
 
@@ -123,9 +123,9 @@ However, in the context of an addon, this creates more files than we would see i
 
 ```
 
-Some files go in the `app` directory, while others go into the `addon` directory. We'll start by looking at the addon directory. At this stage, whatever we put in the `<addon-name>.hbs` file is what could be used immediately in an app.
+Some files go in the `app` directory, while others go into the `addon` directory. We'll start by looking at the addon directory. Whatever we put in the `<addon-name>.hbs` file is what could be used immediately in an app, and will be referenced in templates as `{{addon-name}}`. Later on in this guide, we will cover how to export multiple templates with different names from a single addon project.
 
-Let's say that our addon should wrap some content in a button tag. The addon template looks like this:
+Let's say that our addon should wrap some content in a button tag. The addon template should look like this:
 
 ```hbs
 <!-- addon/templates/components/<addon-name>.hbs -->
@@ -254,18 +254,98 @@ While this guide focuses on the "out of the box" behavior of addons and the Embe
 
 The best way to learn how to CSS preprocessors in your addon is to consult the documentation for the preprocessor addon of your choice, and study how other addon authors have implemented stylesheets. For example, [ember-styleguide](https://github.com/ember-learn/ember-styleguide/) is a UI component library that was made for the main Ember websites. It uses [ember-cli-sass](https://www.emberobserver.com/addons/ember-cli-sass) to manage styles. You can search [Ember Observer](https://emberobserver.com) for many more examples of styling in action!
 
-### Adding JavaScript functionality
+### Adding UI functionality with JavaScript
+
+There are two main types of JavaScript functionality that an addon can provide: API methods that developers can use after importing your addon, and interactivity JavaScript that is part of UI components. We'll cover UI use cases first.
 
 Interactivity in an addon can be handled the same way that it is done for an Ember app component. Every addon component template has a corresponding JavaScript file to go with it. For example, an addon can have its own actions, computed properties, and imported dependencies. Developers using the addon can pass in their own actions and attributes.
 
 For more information about building interactivity for your addon, reference the [Ember Guides components section](https://guides.emberjs.com/release/components/defining-a-component/). Remember to test as you work!
 
-### Providing multiple components in one addon
+### Providing multiple templates in one addon
+
+
+## Writing a JavaScript utilties addon
+
+Many addons have no UI components in them, or they offer a combination of JavaScript utilities and template helpers. In the regular npm ecosystem, JavaScript utility libraries are some of the most common packages. Although we could write a normal node package, providing an Ember addon to developers has some advantages. The developers don't need to worry about how to import a normal npm package. They can use `ember install our-addon-name` and get going right away.
+
+### Providing public API methods in the addon
+
+After we've created our addon file structure with `ember addon <addon-name>`, we can write some functions that will be available for an app to use. Such functions are commonly referred to as "public API." If the behavior of public API changes, it's convention in the Ember community to follow semver and change the major version of the addon. Semver is a cross-program-language versioning scheme that helps other developers or coworkers know which versions of a library will require them to refactor their apps. Learn more about semver [here](https://semver.org/).
+
+Similar to a normal npm package, the entry point is named `index.js`. The files exported from `addon/index.js` will be available to developers using the addon in their apps.
+
+Let's add some public methods to our addon! Don't forget to `export` your methods.
+
+```js
+// addon/index.js
+
+const moreEnthusiasm = function (phrase) {
+  return phrase + '!!!';
+}
+
+export { moreEnthusiasm }
+```
+
+Now, let's use the methods in an app:
+
+```js
+// The JavaScript file of some component in an app
+
+import Component from '@ember/component';
+import { moreEnthusiasm } from 'ember-addon-name';
+
+export default Component.extend({
+  actions: {
+    confirmExcitement() {
+      console.log(moreEnthusiasm('We made an addon'))
+      // prints "We made an addon!!!" to the console
+    }
+  }
+});
+
+```
+
+One common pattern for managing an addon's JavaScript code is to define the methods in many separate files, perhaps grouped into subfolders, import them into `index.js`, and then export them.
+
+For example, an `index.js` file might contain nothing more than imports and exports:
+
+```js
+import { moreEnthusiasm, curbedEnthusiasm } from 'our-app-name/utilities/enthusiasm.js'
+
+export { moreEnthusiasm, curbedEnthusiasm };
+```
+
+This is a very tiny example of what addons can do in terms of providing JavaScript utilties to apps. For more advanced techniques, study other well established addons. Just like there are many ways and reasons to build an Ember app, the same is true for addons!
 
 ## Writing an npm package wrapper
 
+<!-- Help wanted! -->
+
+## Other kinds of addons
+
+<!-- Is there anything meaningful to say here? -->
+
 ## Documenting addons
+
+For other developers to discover and use our addon, we need to teach them how to use it! 
+
+Here are the most common ways that addons provide user-facing documentation:
+
+- A detailed README on the GitHub project
+- Creating a documentation website in the addon's dummy app, found in `/tests/dummy/`
+- A combination of these two
+
+It can be a lot of work to document an addon, so some seasoned addon contributors created [ember-cli-addon-docs](https://github.com/ember-learn/ember-cli-addon-docs), which provides templates for creating a site that shows off your addon. It's a documentation resource and demo in one. Many addon authors choose to host their documentation sites on [GitHub pages](https://help.github.com/articles/what-is-github-pages/), which is free and built into GitHub.
+
+What about documentation of the code itself? Many JavaScript documentation tools have not caught up to ES6-style modules and classes, so the best bet is to look at how some popular addons handle code comments and find a style that works for you. If your code is well commented, it will help out new contributors and reduce the number of issues that others open.
+
+<!-- Help wanted - any best practices for code comments??? -->
+
+Lastly, be sure to provide a few notes about how others can contribute to the project! These notes commonly go in a `README.md` or `CONTRIBUTING.md` file.
 
 ## Testing an addon
 
 ## Advanced addon configuration
+
+<!-- Help wanted! -->
