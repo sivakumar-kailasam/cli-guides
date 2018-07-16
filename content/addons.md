@@ -80,7 +80,7 @@ If an addon only offers one UI template, the addon files usually go in the `addo
 
 #### `app/` 
 
-If an addon will export multiple templates, the addon's files should go in the `app/` directory. When the addon templates are used, they are called by the template name, not the addon name. For example, the addon could provide `{{super-hero-img}}` and `{{fantastic-form}}`. Many addon developers prefix these kinds of templates with a nickname in order to avoid namespace clashes. For example, an addon template named `{{table-row}}` might cause problems if the app using it has a component by the same name, so `{{bs-table-row}}` is safer.
+If an addon will export multiple templates, the addon's files are referenced from the `app/` directory. When the addon templates are used, they are called by the template name, not the addon name. For example, the addon could provide `{{super-hero-img}}` and `{{fantastic-form}}`. Many addon developers prefix these kinds of templates with a nickname in order to avoid namespace clashes. For example, an addon template named `{{table-row}}` might cause problems if the app using it has a component by the same name, so `{{bs-table-row}}` is safer.
 
 #### `tests/dummy/`
 This directory contains a full Ember app for addon testing purposes. During tests, we can check to make sure that the addon works or looks as expected when it is used in an app. Many addon developers use the dummy app to hold their documentation site's content as well.
@@ -314,6 +314,7 @@ This is a very tiny example of what addons can do in terms of providing JavaScri
 ## Writing an npm package wrapper
 
 <!-- Help wanted! -->
+<!-- This section should mention when this is not necessary, and link to helpful resources like ember-auto-import -->
 
 ## In-repo addons
 
@@ -327,7 +328,7 @@ ember generate in-repo-addon <addon-name> [options]
 
 This generates a folder called `lib/<addon-name>` that contains its own `package.json` and an `index.js` file.
 
-The most common use case for an in-repo addon is when there is a chance a component really should be a standalone library instead, but it is not yet clear if it should be broken out from the main app.
+The most common use case for an in-repo addon is when there is a chance a component really should be a standalone library instead, but it is not yet clear if it should be broken out from the main app. Another reason is that it can be helpful for enforcing separation of concerns within an app.
 
 ## Other kinds of addons
 
