@@ -94,7 +94,7 @@ If we want other people to be able to use our addon, we need to specify a name, 
 
 #### `config/ember-try.js`
 
-This is a place to configure which versions of Ember that the test suite should check for compatibility.
+This is a place to configure which versions of Ember that the test suite should check for compatibility. See the [ember-try](https://github.com/ember-cli/ember-try) repository on GitHub for more information.
 
 
 ## Creating a reusable UI component addon
