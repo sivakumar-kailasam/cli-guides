@@ -155,7 +155,11 @@ There are several options to see the addon in action. We could use `npm link` or
 We should now see our addon in action!
 
 **Having problems?**
-Check to make sure that your `package.json` is valid, looking for missing commas or trailing commas. "Template precompiler" errors mean that we forgot Step One. `404 not found` means we forgot to `yarn` or `npm install`. Other errors are likely due to file naming problems. For example, trying to rename an addon or component after it has been created is prone to mistakes. And of course, we need to make sure we saved all the files that we changed along the way. (The author of this guide made every single mistake in this list while writing it.)
+- Check to make sure that your `package.json` is valid, looking for missing commas or trailing commas. 
+- "Template precompiler" errors mean that you skipped Step 1 and 2 above. 
+- `404 not found` means we forgot to `yarn` or `npm install` 
+- Make sure all the files have been saved.
+- Did you rename or relocate any files after they were created? This is prone to mistakes, and the resulting errors can be really strange. It is best to create files using the CLI. 
 
 ### Making a UI component available in block form
 
