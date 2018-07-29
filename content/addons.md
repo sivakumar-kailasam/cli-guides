@@ -76,11 +76,14 @@ Let's take a look a some of the most important files and folders in an addon, an
 
 #### `addon/` 
 
-If an addon only offers one UI template, the addon files usually go in the `addon/` directory. When the addon is used in a template, it is called by the "real name" of the addon, like `{{my-addon-name someValue=true}}`. This directory can hold many of the same subdirectories and files that an Ember app would, like `/components/` and `/templates/`.
+This directory can hold many of the same subdirectories and files that an Ember app would, like `/components/` and `/templates/`. For developers who are making components, most of the work will happen here.
 
 #### `app/` 
 
-If an addon will export multiple templates, the addon's files are referenced from the `app/` directory. When the addon templates are used, they are called by the template name, not the addon name. For example, the addon could provide `{{super-hero-img}}` and `{{fantastic-form}}`. Many addon developers prefix these kinds of templates with a nickname in order to avoid namespace clashes. For example, an addon template named `{{table-row}}` might cause problems if the app using it has a component by the same name, so `{{bs-table-row}}` is safer.
+The `app` directory plays an important role to help an Ember app automatically discover the components exported by an addon.
+The default way to make a component is to put the implementation in `addon/`, which allows developers to import and extend the addon component. However, Ember apps always look for components within the `app` namespace, so we must re-export our components from `app/`.
+
+Fortunately, when we run `ember generate component my-component-name` in an addon project, the CLI takes care of all this re-exporting business. It creates the necessary files and code for us. Addon authors don't usually need to think about the `app` directory.
 
 #### `tests/dummy/`
 This directory contains a full Ember app for addon testing purposes. During tests, we can check to make sure that the addon works or looks as expected when it is used in an app. Many addon developers use the dummy app to hold their documentation site's content as well.
