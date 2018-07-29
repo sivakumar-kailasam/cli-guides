@@ -34,7 +34,7 @@ The [top 100 list](https://www.emberobserver.com/lists/top-addons) is an importa
 
 For example, these community-authored addons bring in familiar functionality from regular npm packages:
 
-- Stylesheet tooling like [ember-cli-sass](https://www.emberobserver.com/addons/ember-cli-sass), which provides [SASS](https://sass-lang.com/) as an alternative to plain CSS
+- Stylesheet tooling like [ember-cli-sass](https://www.emberobserver.com/addons/ember-cli-sass), which provides [Sass](https://sass-lang.com/) as an alternative to plain CSS
 - JavaScript utilities like [ember-moment](https://www.emberobserver.com/addons/ember-moment), which offers some Ember conveniences to the base [moment library](https://www.npmjs.com/package/moment)
 - Full UI frameworks and design kits like [ember-bootstrap](https://www.emberobserver.com/addons/ember-bootstrap), [semantic-ui-ember](https://www.emberobserver.com/addons/semantic-ui-ember), and [ember-paper](https://www.emberobserver.com/addons/ember-paper). These offer easier, more reliable, more performant functionality than just using the npm packages directly.
 
@@ -197,7 +197,7 @@ Whatever goes inside the block form addon will show up where the `{{yield}}` was
 
 ### Styling a UI component addon
 
-Addon developers have many options for handling styles within their addons. For example, we could stick to plain old CSS, or use a preprocessor like Less or Sass. Most seasoned addon authors prefer SASS/SCSS. We could automatically style the UI elements when they are used in an app, or we could let the developer who installed the addon choose which stylesheets to include. Here are a few different approaches. Luckily, the Ember CLI handles most of the work for us and we don't have to worry about the inner workings of asset compilation.
+Addon developers have many options for handling styles within their addons. For example, we could stick to plain old CSS, or use a preprocessor like Less or Sass. Most addon authors prefer Sass. We could automatically style the UI elements when they are used in an app, or we could let the developer who installed the addon choose which stylesheets to include. Here are a few different approaches. Luckily, the Ember CLI handles most of the work for us and we don't have to worry about the inner workings of asset compilation.
 
 #### Automatically including CSS stylesheets in addons
 
@@ -252,7 +252,7 @@ If there are any problems getting this to work, one strategy is to build the add
 
 #### Using CSS preprocessors for the addon's stylesheets
 
-While this guide focuses on the "out of the box" behavior of addons and the Ember CLI, there are some well-established patterns for handling stylesheets in a way that is scalable and maintainable. A CSS preprocessor like Sass (aka SCSS) allows you to nest style rules, use variables, and do simple mathematical operations.
+While this guide focuses on the "out of the box" behavior of addons and the Ember CLI, there are some well-established patterns for handling stylesheets in a way that is scalable and maintainable. A CSS preprocessor like Sass allows you to nest style rules, use variables, and do simple mathematical operations.
 
 The best way to learn how to CSS preprocessors in your addon is to consult the documentation for the preprocessor addon of your choice, and study how other addon authors have implemented stylesheets. For example, [ember-styleguide](https://github.com/ember-learn/ember-styleguide/) is a UI component library that was made for the main Ember websites. It uses [ember-cli-sass](https://www.emberobserver.com/addons/ember-cli-sass) to manage styles. You can search [Ember Observer](https://emberobserver.com) for many more examples of styling in action!
 
