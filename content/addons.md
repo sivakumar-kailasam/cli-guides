@@ -52,6 +52,8 @@ Open Source projects like these addons rely on community members helping out. So
 
 ## Writing an addon
 
+If a developer has worked on an Ember app before, they should feel right at home making an addon! There are many similarities between the two. In this guide, we will cover the step by step instructions.
+
 Writing an addon is a great way to organize code, share it with others, or get the foundational knowledge to contribute to Open Source addons. By separating features into an addon instead of leaving it as an in-app component, more developers can work in parallel and breaking changes can be managed independently. Maintainability goes up, and testing becomes easier.
 
 Since the Ember community has so many addons, one of the best ways to learn more advanced addon development is to study existing addons. If we get stuck or need to see some examples in action, [Ember Observer's code search](https://www.emberobserver.com/code-search) can be very helpful.
@@ -143,14 +145,17 @@ Our goal is to be able to pass the `buttonName` value to the addon, just like we
 
 There are several options to see the addon in action. We could use `npm link` or `yarn link` to try it out locally or publish the addon online. We'll use `link` while we are still developing and testing. 
 
+** From the addon project directory:**
 1. Since our addon uses a template, we need the template precompiler to be a `dependency` and not a `devDependency`. In the addon's `package.json`, move the entry for `ember-cli-htmlbars` into the `dependencies` listing. If this step is missed, there is a clear error message when we try to start the app that uses our addon.
-2. From within the addon directory, `yarn install` or `npm install`
-3. From within the main addon directory, run the command `yarn link` or `npm link`
-4. In the Ember app that should use the addon, do `yarn link <addon-name>` or `npm link <addon-name>`.
-5. In the Ember app's `package.json`, add an entry for your addon, like `"addon-name": "*"`. The `*` means that it will include all version numbers of our addon.
-6. Run `yarn install` or `npm install`
-7. Add a reference to your addon somewhere in an app template, like `{{addon-name buttonLabel="Register"}}`
-8. Run a local server with `ember serve`
+2. `yarn install` or `npm install`
+3. Run the command `yarn link` or `npm link`
+
+** From the directory of the app using the addon:**
+1. `yarn link <addon-name>` or `npm link <addon-name>`.
+2. In the Ember app's `package.json`, add a `devDependencies` entry for your addon, like `"addon-name": "*"`. The `*` means that it will include all version numbers of our addon.
+3. Run `yarn install` or `npm install` in the app
+4. Add a reference to your addon's component somewhere in an app template, like `{{component-name buttonLabel="Register"}}`
+5. Run a local server with `ember serve` and visit [http://localhost:4200](http://localhost:4200)
 
 We should now see our addon in action!
 
@@ -163,7 +168,7 @@ We should now see our addon in action!
 
 ### Making a UI component available in block form
 
-In an Ember app, components can be used in ["simple" or "block" form](https://guides.emberjs.com/release/components/wrapping-content-in-a-component/). Addon templates have the same capabilities. Simple form is useful when the app developer should providing data objects or configuration values to the addon, while the block form is most useful when the developer should also be able to pass in some of their own templating, content, and interactivity.
+In an Ember app, components can be used in ["simple" or "block" form](https://guides.emberjs.com/release/components/wrapping-content-in-a-component/). Addon templates have the same capabilities. The simple form allows data objects or configuration values to be passed to the addon. The block form allows a developer to pass in their own template, content, and interactivity.
 
 In an Ember app, a block style component uses the `{{yield}}` helper as a placeholder for where the passed-in content will go. It is the same in an Ember addon. 
 
@@ -248,6 +253,8 @@ For the stylesheet to be active in the app the addon is used in, the developer f
 /* The app's own app/styles/app.css */
 ```
 
+Then, restart your local server to see the changes in action.
+
 If there are any problems getting this to work, one strategy is to build the addon with `ember build` and look inside the `dist` folder. The `dist` folder may be hidden by default in some code editors. The `dist` folder gives clues about what the consuming app sees as the file structure of the addon. See if the stylesheets are in `dist/assets/`. Then, in the Ember app, run `ember build` and look in the `dist` folder. We should see our stylesheets in `dist/assets` of the app too.
 
 #### Using CSS preprocessors for the addon's stylesheets
@@ -278,7 +285,7 @@ Many addons have no UI components in them, or they offer a combination of JavaSc
 
 ### Providing public API methods in the addon
 
-After we've created our addon file structure with `ember addon <addon-name>`, we can write some functions that will be available for an app to use. Such functions are commonly referred to as "public API." If the behavior of public API changes, it's convention in the Ember community to follow semver and change the major version of the addon. Semver is a cross-program-language versioning scheme that helps other developers or coworkers know which versions of a library will require them to refactor their apps. Learn more about semver [here](https://semver.org/).
+After we've created our addon file structure with `ember addon <addon-name>`, we can write some functions that will be available for an app to use. Such functions are commonly referred to as "public API." If the behavior of public API changes, it's convention in the Ember community to follow semver and change the major version of the addon. [Semver](https://semver.org/) is a cross-program-language versioning scheme that helps other developers or coworkers know which versions of a library will require them to refactor their apps.
 
 All npm packages have an entry point. By default, the entry point is named `{addonName}/index.js`, at the top level inside the addon. The files exported from `addon/index.js` will be available to developers using the addon in their apps.
 
