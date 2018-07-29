@@ -83,7 +83,7 @@ This directory can hold many of the same subdirectories and files that an Ember 
 The `app` directory plays an important role to help an Ember app automatically discover the components exported by an addon.
 The default way to make a component is to put the implementation in `addon/`, which allows developers to import and extend the addon component. However, Ember apps always look for components within the `app` namespace, so we must re-export our components from `app/`.
 
-Fortunately, when we run `ember generate component my-component-name` in an addon project, the CLI takes care of all this re-exporting business. It creates the necessary files and code for us. Addon authors don't usually need to think about the `app` directory.
+Fortunately, when we run `ember generate component my-component-name` in an addon project, the CLI takes care of all this re-exporting business. It creates the necessary files and code for us. Addon authors don't usually need to think about the `app` directory or do any work in it.
 
 #### `tests/dummy/`
 This directory contains a full Ember app for addon testing purposes. During tests, we can check to make sure that the addon works or looks as expected when it is used in an app. Many addon developers use the dummy app to hold their documentation site's content as well.
