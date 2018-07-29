@@ -99,10 +99,16 @@ This is a place to configure which versions of Ember that the test suite should 
 
 ## Creating a reusable UI component addon
 
-To create a UI component template that can be shared between apps, the process is a lot like creating a normal app component:
+If we want to create a UI component template that can be shared between apps, first we need to create an addon:
 
 ```bash
-ember generate component <addon-name>
+ember addon <addon-name> [options]
+```
+
+Then, the process is a lot like creating a normal app component:
+
+```bash
+ember generate component <component-name>
 ```
 
 However, in the context of an addon, this creates more files than we would see in an app:
@@ -115,7 +121,7 @@ However, in the context of an addon, this creates more files than we would see i
 
 ```
 
-Some files go in the `app` directory, while others go into the `addon` directory. We'll start by looking at the addon directory. Whatever we put in the `<addon-name>.hbs` file is what could be used immediately in an app, and will be referenced in templates as `{{addon-name}}`. Later on in this guide, we will cover how to export multiple templates with different names from a single addon project.
+Some files go in the `app` directory, while others go into the `addon` directory. We'll start by looking at the addon directory. Whatever we put in the `<component-name>.hbs` file is what could be used immediately in an app, and will be referenced in templates as `{{component-name}}`.
 
 Let's say that our addon should wrap some content in a button tag. The addon template should look like this:
 
