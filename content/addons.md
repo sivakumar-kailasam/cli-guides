@@ -254,13 +254,18 @@ If there are any problems getting this to work, one strategy is to build the add
 
 While this guide focuses on the "out of the box" behavior of addons and the Ember CLI, there are some well-established patterns for handling stylesheets in a way that is scalable and maintainable. A CSS preprocessor like Sass allows you to nest style rules, use variables, and do simple mathematical operations.
 
-The best way to learn how to CSS preprocessors in your addon is to consult the documentation for the preprocessor addon of your choice, and study how other addon authors have implemented stylesheets. For example, [ember-styleguide](https://github.com/ember-learn/ember-styleguide/) is a UI component library that was made for the main Ember websites. It uses [ember-cli-sass](https://www.emberobserver.com/addons/ember-cli-sass) to manage styles. You can search [Ember Observer](https://emberobserver.com) for many more examples of styling in action!
+The best way to learn how to use CSS preprocessors in your addon is to consult the documentation for the preprocessor addon of your choice, and study how other addon authors have implemented stylesheets. For example, [ember-styleguide](https://github.com/ember-learn/ember-styleguide/) is a UI component library that was made for the main Ember websites. It uses [ember-cli-sass](https://www.emberobserver.com/addons/ember-cli-sass) to manage styles. You can search [Ember Observer](https://emberobserver.com) for many more examples of styling in action!
 
 ### Adding UI functionality with JavaScript
 
-There are two main types of JavaScript functionality that an addon can provide: API methods that developers can use after importing your addon, and interactivity JavaScript that is part of UI components. We'll cover UI use cases first.
+There are two main types of JavaScript functionality that an addon can provide:
 
-Interactivity in an addon can be handled the same way that it is done for an Ember app component. Every addon component template has a corresponding JavaScript file to go with it. For example, an addon can have its own actions, computed properties, and imported dependencies. Developers using the addon can pass in their own actions and attributes.
+1. API methods that developers can use after importing your addon
+2. Interactive features that are part of UI components. 
+
+We'll cover UI use cases first.
+
+Interactivity in an addon can be handled the same way that it is done for an Ember app's component. Every addon component template has a corresponding JavaScript file to go with it. For example, an addon can have its own actions, computed properties, and imported dependencies. Developers using the addon can pass in their own actions and attributes.
 
 For more information about building interactivity for your addon, reference the [Ember Guides components section](https://guides.emberjs.com/release/components/defining-a-component/). Remember to test as you work!
 
