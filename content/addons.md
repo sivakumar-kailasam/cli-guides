@@ -274,13 +274,13 @@ For more information about building interactivity for your addon, reference the 
 
 ## Writing a JavaScript utilties addon
 
-Many addons have no UI components in them, or they offer a combination of JavaScript utilities and template helpers. In the regular npm ecosystem, JavaScript utility libraries are some of the most common packages. Although we could write a normal node package, providing an Ember addon to developers has some advantages. The developers don't need to worry about how to import a normal npm package. They can use `ember install our-addon-name` and get going right away.
+Many addons have no UI components in them, or they offer a combination of JavaScript utilities and template helpers. In the regular npm ecosystem, JavaScript utility libraries are some of the most common packages. Although we could write a normal node package, providing an Ember addon to developers has some advantages. The developers don't need to worry about how to import a normal npm package. They can use `ember install our-addon-name` and get going right away. An addon can also take advantage of Ember or Ember CLI-specific APIs.
 
 ### Providing public API methods in the addon
 
 After we've created our addon file structure with `ember addon <addon-name>`, we can write some functions that will be available for an app to use. Such functions are commonly referred to as "public API." If the behavior of public API changes, it's convention in the Ember community to follow semver and change the major version of the addon. Semver is a cross-program-language versioning scheme that helps other developers or coworkers know which versions of a library will require them to refactor their apps. Learn more about semver [here](https://semver.org/).
 
-Similar to a normal npm package, the entry point is named `index.js`. The files exported from `addon/index.js` will be available to developers using the addon in their apps.
+All npm packages have an entry point. By default, the entry point is named `{addonName}/index.js`, at the top level inside the addon. The files exported from `addon/index.js` will be available to developers using the addon in their apps.
 
 Let's add some public methods to our addon! Don't forget to `export` your methods.
 
@@ -336,7 +336,7 @@ This is a very tiny example of what addons can do in terms of providing JavaScri
 
 ## In-repo addons
 
-If the addon is just meant to be used in a single project, an "in-repo" addon could be created instead. The benefit is that it is lightweight, but there are some major limitations: an in-repo addon can't be shared between apps, versioned independently, or published to npm. 
+If the addon is just meant to be used in a single project, an "in-repo" addon could be created instead. The benefits are that it is lightweight and the developer has access addon APIs, like adding packages and commands. However, there are some major limitations: an in-repo addon can't be shared between apps, versioned independently, or published to npm. 
 
 From within an existing Ember app, create an in-repo addon:
 
